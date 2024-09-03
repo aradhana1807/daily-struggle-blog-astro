@@ -4,6 +4,7 @@ description: "Buzzing Mind"
 pubDate: "Jul 08 2022"
 heroImage: "/chapters/chapter-1.jpg"
 tags: ["Daily"]
+slug: "chapter-1"
 ---
 
 3:00 A.M

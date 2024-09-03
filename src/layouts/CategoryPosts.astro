@@ -24,7 +24,7 @@ const posts = (await Astro.glob('../content/blog/*.md')).sort(
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <BaseHead title={category + ` / ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+    <BaseHead title={category} description={SITE_DESCRIPTION} />
   </head>
   <Body>
     <Header title={SITE_TITLE} />
@@ -36,7 +36,7 @@ const posts = (await Astro.glob('../content/blog/*.md')).sort(
             {
               posts.map(post => (
                 <li class="text-center mb-4">
-                  <a href={post.url}>
+                  <a href={`/blog/${post.frontmatter.slug}/`}>
                     <img
                       class="border border-slate-300 dark:border-zinc-700 rounded-xl"
                       src={post.frontmatter.heroImage as string}
@@ -59,3 +59,4 @@ const posts = (await Astro.glob('../content/blog/*.md')).sort(
     <Footer />
   </Body>
 </html>
+

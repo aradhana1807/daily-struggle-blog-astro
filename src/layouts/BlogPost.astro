@@ -8,7 +8,7 @@ import Content from '../components/Content.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, updatedDate, heroImage, tags } = Astro.props;
+const { title, description, heroImage } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -67,8 +67,8 @@ const { title, description, updatedDate, heroImage, tags } = Astro.props;
 		<div>{description}</div>
 		<hr class="border-top border-zinc-400 my-4" />
 		<slot />
-		<span class="underline underline-offset-2 hover:text-orange-500 decoration-orange-500 text-2xl">
 
+		<span class="underline underline-offset-2 hover:text-orange-500 decoration-orange-500 text-2xl">
 		</span>
 	</Content>
 </main>

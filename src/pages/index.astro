@@ -4,7 +4,6 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Body from '../components/Body.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import Image from 'astro/components/Image.astro';
 import Content from '../components/Content.astro';
 ---
 
@@ -18,10 +17,10 @@ import Content from '../components/Content.astro';
 		<main class="pt-[56px] min-h-screen">
 			<Content>
 				<section class="flex flex-col items-center mb-8">
-					<Image src="/cloudhikari.svg" alt="Hikari and Cloud" width="400" height="400"
+					<img src="/cloudhikari.svg" alt="Hikari and Cloud" width="400" height="400"
 						class="hidden dark:block"/>
 
-					<Image src="/cloudhikari-light.svg" alt="Hikari and Cloud" width="400" height="400" class="dark:hidden"/>
+					<img src="/cloudhikari-light.svg" alt="Hikari and Cloud" width="400" height="400" class="dark:hidden"/>
 
 					<div class="text-center text-wrap max-w-xl text-lg font-suse sm:max-w-lg sm:text-md">
 						

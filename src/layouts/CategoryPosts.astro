@@ -20,7 +20,6 @@ const posts = (await Astro.glob('../content/blog/*.md')).sort(
   )
   .filter(item => item.frontmatter.tags.includes(category))
 ---
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -59,4 +58,3 @@ const posts = (await Astro.glob('../content/blog/*.md')).sort(
     <Footer />
   </Body>
 </html>
-

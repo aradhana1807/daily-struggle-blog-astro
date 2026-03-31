@@ -1,5 +1,5 @@
 import { Menu, MenuItems, MenuButton, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { IoMenu } from "react-icons/io5";
 import DropdownMenuItem from "./DropdownMenuItem";
 

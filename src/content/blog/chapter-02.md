@@ -4,7 +4,6 @@ description: "Antithesis"
 pubDate: "Jul 15 2022"
 heroImage: "/chapters/chapter-2.jpg"
 tags: ["Daily"]
-slug: "chapter-2"
 ---
 
 _It's suffocating._

@@ -4,32 +4,34 @@ import { SITE_TITLE } from '../consts';
 import FootprintIcon from './icons/footprint.jsx';
 import ThemeToggle from './ThemeToggleButton.jsx';
 import DropdownMenu from './DropdownMenu';
+import { getCollection, type CollectionEntry } from "astro:content";
 
-const allPosts = await Astro.glob('../content/blog/*.md')
-const allTags = new Set<string>()
-allPosts.map(post => {
-  post.frontmatter.tags &&
-    post.frontmatter.tags.map((tag: string) => allTags.add(tag))
-})
+const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+
+const allTags = new Set<string>();
+
+allPosts.forEach((post) => {
+  post.data.tags?.forEach((tag: string) => allTags.add(tag));
+});
 ---
 
 <header class="fixed w-full p-2 z-20 backdrop-blur-md bg-zinc-100 dark:bg-zinc-900">
-	<div class="mx-auto max-w-3xl">
-		<nav class="flex items-center gap-3 text-base">
-			<a href="/" class="group flex items-center">
-				<h2 class="font-semibold p-2 text-lg">	
-					<FootprintIcon />	
-					{SITE_TITLE}
-				</h2>
-			</a>
-			
-			<div class="items-center gap-6 hidden md:flex">
-				<HeaderLink href="/blog">Chapters</HeaderLink>
-			</div>
+  <div class="mx-auto max-w-3xl">
+    <nav class="flex items-center gap-3 text-base">
+      <a href="/" class="group flex items-center">
+        <h2 class="font-semibold p-2 text-lg">
+          <FootprintIcon />
+          {SITE_TITLE}
+        </h2>
+      </a>
 
-			<div class="flex-1"></div>
-			<ThemeToggle client:visible/>
-			<DropdownMenu client:visible tags={Array.from(allTags)} />
-		</nav>
-	</div>
+      <div class="items-center gap-6 hidden md:flex">
+        <HeaderLink href="/blog">Chapters</HeaderLink>
+      </div>
+
+      <div class="flex-1"></div>
+      <ThemeToggle client:visible />
+      <DropdownMenu client:visible tags={Array.from(allTags)} />
+    </nav>
+  </div>
 </header>

@@ -1,77 +1,137 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Body from '../components/Body.astro';
-import Content from '../components/Content.astro';
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Body from "../components/Body.astro";
+import Content from "../components/Content.astro";
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<"blog">["data"] & {
+  prevPost?: CollectionEntry<"blog"> | null;
+  nextPost?: CollectionEntry<"blog"> | null;
+};
 
-const { title, description, heroImage } = Astro.props;
+const { title, description, heroImage, prevPost, nextPost } = Astro.props;
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-	</head>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
 
-	<Body>
-		<Header />
-		<style is:global>
-			main article.markdown-body {
-				ul {
-					@apply list-disc list-inside pl-4 mb-4
-				}
-				h1, h2, h3, h4, h5 {
-					@apply font-bold font-suse
-				}
-				h1 {
-					@apply text-4xl
-				}
-				h2 {
-					@apply text-2xl
-				}
-				h3 {
-					@apply text-xl
-				}
-				h4 {
-					@apply text-lg
-				}
-				img {
-					@apply border border-slate-300 dark:border-zinc-700 rounded-xl mb-6
-				}
-				p {
-					@apply mb-6 text-justify text-lg
-				}
-				a {
-					@apply underline underline-offset-2 hover:text-orange-500 decoration-orange-500
-				}
-			}
-			</style>
+  <Body>
+    <Header />
 
-<main class="pt-[56px] font-suse">
-	<Content className="pt-6 markdown-body">
-		<div class="mb-8 max-w-2xl mx-auto">
-			{
-				heroImage && (
-					<img
-						class="border border-slate-300 dark:border-zinc-700 rounded-xl object-cover"
-						src={heroImage}
-						alt=""
-					/>
-				)
-			}
-		</div>
-		<h1 class="text-3xl my-1 font-mplus">{title}</h1>
-		<div>{description}</div>
-		<hr class="border-top border-zinc-400 my-4" />
-		<slot />
+    <style is:global>
+      main article.markdown-body {
+        ul {
+          @apply list-disc list-inside pl-4 mb-4;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+          @apply font-bold font-suse;
+        }
+        h1 {
+          @apply text-4xl;
+        }
+        h2 {
+          @apply text-2xl;
+        }
+        h3 {
+          @apply text-xl;
+        }
+        h4 {
+          @apply text-lg;
+        }
 
-		<span class="underline underline-offset-2 hover:text-orange-500 decoration-orange-500 text-2xl">
-		</span>
-	</Content>
-</main>
-		<Footer />
-	</Body>
+        img {
+          @apply border border-slate-300 dark:border-zinc-700 rounded-xl mb-6;
+        }
+
+        p {
+          @apply mb-6 text-justify text-lg leading-relaxed;
+        }
+
+        a {
+          @apply underline underline-offset-4 decoration-zinc-400 hover:decoration-zinc-600 dark:hover:decoration-zinc-300 transition;
+        }
+      }
+
+      .no-underline {
+        text-decoration: none !important;
+      }
+    </style>
+
+    <main class="pt-[56px] font-suse">
+      <Content className="pt-6 markdown-body">
+        <div class="mb-8 max-w-2xl mx-auto">
+          {
+            heroImage && (
+              <img
+                class="border border-slate-300 dark:border-zinc-700 rounded-xl object-cover"
+                src={heroImage}
+                alt=""
+              />
+            )
+          }
+        </div>
+
+        <h1 class="text-3xl my-1 font-mplus">{title}</h1>
+
+        <div class="text-zinc-600 dark:text-zinc-400">{description}</div>
+
+        <hr class="border-top border-zinc-400 my-4" />
+
+        <slot />
+
+        <div class="flex flex-col sm:flex-row justify-between mt-12 gap-4">
+          <div class="flex-1">
+            {
+              prevPost && (
+                <a
+                  href={`/blog/${prevPost.id}`}
+                  class="no-underline block p-4 rounded-xl border border-zinc-300 dark:border-zinc-600
+                  hover:bg-zinc-100 dark:hover:bg-zinc-800
+                  transition-all duration-200 hover:shadow-sm
+                  focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 dark:focus:ring-offset-zinc-900"
+                >
+                  <div class="text-xs uppercase tracking-wide text-zinc-600 dark:text-zinc-400">
+                    🠈 Previous
+                  </div>
+                  <div class="font-semibold text-zinc-900 dark:text-zinc-100">
+                    {prevPost.data.title}
+                  </div>
+                </a>
+              )
+            }
+          </div>
+          <div class="flex-1 sm:text-right">
+            {
+              nextPost && (
+                <a
+                  href={`/blog/${nextPost.id}`}
+                  class="no-underline block p-4 rounded-xl border border-zinc-300 dark:border-zinc-600
+                  hover:bg-zinc-100 dark:hover:bg-zinc-800
+                  transition-all duration-200 hover:shadow-sm
+                  focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 dark:focus:ring-offset-zinc-900"
+                >
+                  <div class="text-xs uppercase tracking-wide text-zinc-600 dark:text-zinc-400">
+                    Next 🠊
+                  </div>
+                  <div class="font-semibold text-zinc-900 dark:text-zinc-100">
+                    {nextPost.data.title}
+                  </div>
+                </a>
+              )
+            }
+          </div>
+        </div>
+      </Content>
+    </main>
+    <Footer />
+  </Body>
 </html>
